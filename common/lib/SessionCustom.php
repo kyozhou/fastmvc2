@@ -1,4 +1,5 @@
 <?php 
+namespace lib;
 
 /**
  * * A PHP session handler to keep session data within a MySQL database

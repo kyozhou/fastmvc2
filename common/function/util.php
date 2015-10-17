@@ -116,3 +116,60 @@ function tcpRequest($address, $data) {
     return $return;
 }
 
+function filtPost($keys = array(), $type = 'string', $defaultValue = null) {
+    return filtRequest($keys, $type, $_POST, $defaultValue);
+}
+
+function filtGet($keys = array(), $type = 'string', $defaultValue = null) {
+    return filtRequest($keys, $type, $_GET, $defaultValue);
+}
+
+function filtRequest($keys = array(), $type = 'string', $inputArray = array(), $defaultValue = null) {
+    $request = empty($inputArray) ? array_merge($_GET, $_POST) : $inputArray;
+    if (!empty($request)) {
+        if (is_array($keys)) {
+            if (!empty($keys)) {
+                $dataFilted = array();
+                foreach ($keys as $key) {
+                    $dataFilted[$key] = empty($request[$key]) ? null : filtRequest($request[$key], $type);
+                }
+                return $dataFilted;
+            } else {
+                foreach ($request as $key => $value) {
+                    $request[$key] = empty($value) ? null : filtRequest($value, $type);
+                }
+                return $request;
+            }
+        } else {
+            $data = !empty($request[$keys]) ? $request[$keys] : '';
+            switch ($type) {
+            case 'string':
+                $defaultValue = $defaultValue === null ? '' : $defaultValue;
+                return !empty($data) ? $data : $defaultValue;
+                break;
+            case 'int':
+                $defaultValue = $defaultValue === null ? 0 : $defaultValue;
+                return !empty($data) && is_numeric($data) ? intval($data) : $defaultValue;
+                break;
+            case 'uint':
+                $defaultValue = $defaultValue === null ? 0 : $defaultValue;
+                return !empty($data) && is_numeric($data) && intval($data) >= 0 ? abs(intval($data)) : $defaultValue;
+                break;
+            case 'float':
+                $defaultValue = $defaultValue === null ? 0 : $defaultValue;
+                return !empty($data) && is_numeric($data) ? round($data, 2) : $defaultValue;
+                break;
+            case 'array':
+                $defaultValue = $defaultValue === null ? array() : $defaultValue;
+                return !empty($data) && is_array($data) ? $data : $defaultValue;
+                break;
+            default:
+                return $defaultValue;
+                break;
+            }
+        }
+    } else {
+        return $defaultValue;
+    }
+}
+

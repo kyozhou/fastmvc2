@@ -1,11 +1,5 @@
 <?php
-
-/**
- * FastMVC Core
- *
- * by kyozhou@sina.com
- * at 20130613
- */
+namespace lib;
 class Router {
     
     private $root = null;
@@ -24,7 +18,7 @@ class Router {
         $controllerArray = explode('/', $controllerName);
         $controllerClass = !empty($controllerArray[0]) ? $controllerArray[0] : 'index';
         $this->nameFormat($controllerClass, true);
-        $controllerClass = file_exists($this->root . "/controller/C$controllerClass.php") ? 'C' . $controllerClass : 'Index';
+        $controllerClass = file_exists($this->root . "/controller/$controllerClass.php") ? $controllerClass : 'Index';
 
         $controllerClassFile = $this->root . '/controller/' . $controllerClass . '.php';
         if(file_exists($controllerClassFile)) {
@@ -34,6 +28,7 @@ class Router {
             if (strtolower($controllerClass) === strtolower($controllerMethod) || in_array(strtolower($controllerMethod), array('list', 'print'))) {
                 $controllerMethod = $this->splitString . $controllerMethod;
             }
+            $controllerClass = "\\controller\\$controllerClass";
             $controller = new $controllerClass();
             if (method_exists($controller, $controllerMethod)) {
                 unset($_GET['c']);
