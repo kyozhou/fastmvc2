@@ -105,7 +105,10 @@ class DB {
     function fetchColumn($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
         $statement->execute($args);
-        $result = $statement->fetchColumn();
+        while($result !== false) {
+            $column[] = $result;
+            $result = $statement->fetchColumn();
+        }
         return $result;
     }
 
