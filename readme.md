@@ -5,4 +5,4 @@
 # namespace: common, common/lib, common/func, controller, model, view
 
 #requirement
-###php 5.4+
+###php 5.4+, php-pdo
