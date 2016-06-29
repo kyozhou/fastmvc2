@@ -8,10 +8,6 @@ require_once dirname(dirname(__FILE__)).'/config/'.ENVIRONMENT.'.php';
 include dirname(__FILE__) . '/function/default.php';
 include dirname(__FILE__) . '/function/util.php';
 
-cleanXss($_GET);
-cleanXss($_POST);
-cleanXss($_REQUEST);
-
 function __autoload($path) {
     $root = dirname(dirname(__FILE__));
     $pathArray = explode('\\', $path);

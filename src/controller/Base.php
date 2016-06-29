@@ -7,6 +7,8 @@ class Base {
 
     function __construct() {
         $this->sessionHandle();
+        cleanXss($_POST);
+        cleanXss($_GET);
     }
     
     private function sessionHandle() {
