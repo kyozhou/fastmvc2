@@ -88,7 +88,6 @@ function httpPost($url, $params, $headerMap = []) {
     curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容      
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($curl, CURLOPT_USERPWD, "miaoke:music111"); 
     curl_setopt($curl, CURLOPT_HTTPHEADER , $headers);   
     curl_setopt($curl, CURLOPT_HEADER, 1);
     $tmpInfo = curl_exec($curl); // 执行操作      
