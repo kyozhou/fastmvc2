@@ -91,7 +91,7 @@ class DB {
     function fetchTable($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
         $statement->execute($args);
-        $result = $statement->fetchAll();
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
