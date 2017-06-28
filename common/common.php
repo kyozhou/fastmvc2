@@ -8,28 +8,6 @@ require_once dirname(dirname(__FILE__)).'/config/'.ENVIRONMENT.'.php';
 include dirname(__FILE__) . '/function/default.php';
 include dirname(__FILE__) . '/function/util.php';
 
-function __autoload($path) {
-    $root = dirname(dirname(__FILE__));
-    $pathArray = explode('\\', $path);
-    $pathPre = $pathArray[0];
-    $className = $pathArray[count($pathArray) - 1];
-    unset($pathArray[0]);
-    $pathSuf = implode('/', $pathArray);
-    $pathMap = array(
-        'lib' => $root . '/common/lib', 
-        'function' => $root . '/common/function',
-        'controller' => $root . '/src/controller',
-        'model' => $root . '/src/model',
-        'view' => $root . '/src/view',
-    );
-    $path = $pathMap[$pathPre] . '/' . $pathSuf . '.php';
-    if(file_exists($path)) {
-        include_once($path);
-    }elseif(!class_exists($className)) {
-        logger('path:'. $path .' is not exists');
-        die('path:'. $path .' is not exists');
-    }
-}
 
 function logger($content, $commitNow = true) {
     global $logs;
