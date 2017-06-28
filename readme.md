@@ -11,6 +11,21 @@
  - cp config/env.php.example config/env.php
  - modify config/dev.php to change your own db config
  - composer install
+ 
+## about db init
+    CREATE TABLE `user_session` (
+      `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      `user_id` int(11) NOT NULL,
+      `ip` varchar(15) NOT NULL DEFAULT '',
+      `session_id` char(32) NOT NULL DEFAULT '',
+      `data` varchar(500) NOT NULL DEFAULT '',
+      `is_deleted` bit(1) NOT NULL DEFAULT b'0',
+      `time_created` int(11) NOT NULL,
+      `time_updated` int(11) NOT NULL,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `session_id` (`session_id`),
+      KEY `user_id` (`user_id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 ## vim /etc/hosts
     127.0.0.1 fastmvc2.local.com
