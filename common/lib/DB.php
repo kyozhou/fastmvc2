@@ -13,7 +13,7 @@ class DB {
     private static $dbInstances;
 
     static function get($config) {
-        $dbKey = md5($config);
+        $dbKey = md5(json_encode($config));
         if (!isset(self::$dbInstances[$dbKey])) {
             self::$dbInstances[$dbKey] = new DB($config);
         }
@@ -34,7 +34,7 @@ class DB {
         if (isset($config['charset']) && $config['charset']) {
             $this->charset = $config['charset'];
         } else {
-            $this->charset = 'utf8mb4';
+            $this->charset = 'utf8';
         }
 
         $this->connect();
@@ -64,21 +64,22 @@ class DB {
         $this->pdoObj = null;
     }
 
-    function beginTransaction() {
+    public function beginTransaction() {
         $this->pdoObj->beginTransaction();
     }
 
-    function commit() {
+    public function commit() {
         $this->pdoObj->commit();
     }
 
-    function rollback() {
+    public function rollback() {
         $this->pdoObj->rollBack();
     }
 
     function execute($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
-        $statement->execute($args);
+        $this->bindParams($statement, $args);
+        $statement->execute();
         return $statement->rowCount();
     }
 
@@ -90,33 +91,50 @@ class DB {
 
     function fetchTable($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
-        $statement->execute($args);
+        $this->bindParams($statement, $args);
+        $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     function fetchRow($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
-        $statement->execute($args);
+        $this->bindParams($statement, $args);
+        $statement->execute();
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
 
     function fetchColumn($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
-        $statement->execute($args);
+        $this->bindParams($statement, $args);
+        $statement->execute();
+        $column = [];
+        $result = $statement->fetchColumn();
         while($result !== false) {
             $column[] = $result;
             $result = $statement->fetchColumn();
         }
-        return $result;
+        return $column;
     }
 
     function fetchCell($sql, $args = []) {
         $statement = $this->pdoObj->prepare($sql);
-        $statement->execute($args);
+        $this->bindParams($statement, $args);
+        $statement->execute();
         $result = $statement->fetch(\PDO::FETCH_NUM);
-        return empty($result[0]) ? null : $result[0];
+        //return empty($result[0]) ? null : $result[0];
+        return $result[0];
+    }
+
+    function bindParams(&$statement, &$args) {
+        foreach($args as $index => &$arg) {
+            if(is_int($arg)) {
+                $statement->bindValue($index+1, (int)$arg, \PDO::PARAM_INT);
+            }else {
+                $statement->bindValue($index+1, $arg, \PDO::PARAM_STR);
+            }
+        }
     }
 
 }

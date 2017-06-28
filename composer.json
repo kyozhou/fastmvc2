@@ -1,0 +1,24 @@
+{
+    "name": "kyozhou/fastmvc2",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "~5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "lib\\": "./common/lib/",
+            "function\\": "./common/function/",
+            "view\\": "./src/view/",
+            "controller\\": "./src/controller/",
+            "model\\": "./src/model/"
+        }
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "zhoubin",
+            "email": "zhoubin@mirahome.me"
+        }
+    ],
+    "minimum-stability": "dev"
+}
