@@ -38,21 +38,23 @@
 
 
 # project structure
+    index.php
+    composer.json
     common
-        common.php
-        lib
+        common.php #file must to loaded every time
+        lib #custom libs
         function
-            util.php
+            util.php #utilities(function)
     config
-        env.php.example
+        env.php.example #change to env.php(define the environment)
         dev.php
     src
         view
         controller
-            Base.php
-            Test.php
+            Base.php #base class for controller
+            Test.php #test controller class
         model
-            Base.php
-            Test.php
-            UserSessioin.php
+            Base.php #base class for model
+            Test.php #test model class
+            UserSessioin.php #user session class for mysql
         
