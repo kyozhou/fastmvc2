@@ -7,8 +7,8 @@
 # quick start
 
 ## about code
-`cp config/env.php.example config/env.php`
-`modify config/dev.php to change your own db config`
+ - cp config/env.php.example config/env.php
+ - modify config/dev.php to change your own db config
 
 ## vim /etc/hosts
     127.0.0.1 fastmvc2.local.com
