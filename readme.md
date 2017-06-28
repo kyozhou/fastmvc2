@@ -3,12 +3,14 @@
  - php 5.4+
  - php-pdo
  - php-mysql
+ - composer
 
 # quick start
 
 ## about code
  - cp config/env.php.example config/env.php
  - modify config/dev.php to change your own db config
+ - composer install
 
 ## vim /etc/hosts
     127.0.0.1 fastmvc2.local.com
@@ -33,3 +35,24 @@
 
 ## test url
 `http://fastmvc2.local.com/1.0/test/test`
+
+
+# project structure
+    common
+        common.php
+        lib
+        function
+            util.php
+    config
+        env.php.example
+        dev.php
+    src
+        view
+        controller
+            Base.php
+            Test.php
+        model
+            Base.php
+            Test.php
+            UserSessioin.php
+        
