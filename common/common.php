@@ -10,6 +10,9 @@ include dirname(__FILE__) . '/function/util.php';
 
 
 function logger($content, $commitNow = true) {
+    if(!file_exists(LOG_ROOT)) {
+        mkdir(LOG_ROOT);
+    }
     global $logs;
     $logs = empty($logs) ? [] : $logs;
     $logs[] = $content;

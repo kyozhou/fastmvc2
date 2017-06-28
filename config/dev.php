@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 
 define('APP_URL', 'http://localhost');
-define('LOG_ROOT', '/data/log/');
+define('LOG_ROOT', '/tmp/log');
 
 $dbs = array(
     'main' => array(

@@ -1,4 +1,5 @@
 <?php
+require "vendor/autoload.php";
 $timeStart = microtime(true);
 include dirname(__FILE__) . '/common/common.php';
 $router = new lib\Router(dirname(__FILE__) . '/src');
