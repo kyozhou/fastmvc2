@@ -5,7 +5,7 @@
  - php-mysql
 
 # quick start
-## cp config/env.php.example config/env.php
+`cp config/env.php.example config/env.php`
 ## vim /etc/hosts
     127.0.0.1 fastmvc2.local.com
 
