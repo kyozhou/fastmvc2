@@ -43,7 +43,7 @@
             root           /path/to/fastmvc2;
             fastcgi_pass   127.0.0.1:9000;
             fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  /path/to/fastmvc2fastmvc2$fastcgi_script_name;
+            fastcgi_param  SCRIPT_FILENAME  /path/to/fastmvc2$fastcgi_script_name;
             include        fastcgi.conf;
         }
     }
